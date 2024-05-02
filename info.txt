@@ -21,7 +21,7 @@ read USER_NAME
 # check if user name < 23 3characters
 LEN_NAME=${#USER_NAME}
 # echo $LEN_NAME
-if [[ ! $LEN_NAME > 22 ]]
+if [[ $LEN_NAME -gt 22 ]]
 then
   echo -e "\nPlease choose a name shorter than 23 characters:"
   GET_USER
@@ -30,7 +30,7 @@ fi
 IS_USER=$($PSQL "SELECT name FROM players WHERE name = '$USER_NAME'" )
 #echo -e "you are $USER"
 
-if [[ -z $USER ]]
+if [[ -z $IS_USER ]]
 then
   INSERT_RESULT=$($PSQL "INSERT INTO players(name) values('$USER_NAME')")
   PLAYER_ID=$($PSQL "SELECT player_id FROM players WHERE name = '$USER_NAME'")
