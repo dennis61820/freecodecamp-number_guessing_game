@@ -11,7 +11,7 @@ NUMBER_OF_GUESSES=0
 
  # generate a number between 1 and 1000
 NUMBER=$(($RANDOM % 1000 + 1))
-echo -e "\nthe number is $NUMBER"
+#echo -e "\nthe number is $NUMBER"
 echo -e "\nEnter your username: "
 GET_USER () {
 
@@ -59,19 +59,25 @@ GUESS_NUM () {
   
   read GUESS
     let NUMBER_OF_GUESSES+=1
-    UPDATE_GUESSES=$($PSQL "update games set num_guesses = $NUMBER_OF_GUESSES WHERE player_id = $PLAYER_ID")
+   
  # echo $NUMBER_OF_GUESSES
    
   if [[ ! $GUESS =~ ^[0-9]+$ ]]
   then
-    echo  "That is not an integer, guess again:"
+    echo  "That is not an integer, guess again: "
     GUESS_NUM 
+  fi
+  if [[ $GUESS -lt 1 || $GUESS -gt 1000 ]]
+  then
+    echo "That's outside of the range, guess again: "
+    GUESS_NUM
   fi
   
   # 1 number correct
-    if [[ $GUESS == $NUMBER ]]
+    if [[ $GUESS -eq $NUMBER ]]
     then
       echo -e "\nYou guessed it in $NUMBER_OF_GUESSES tries. The secret number was $NUMBER. Nice job!" 
+      UPDATE_GUESSES=$($PSQL "update games set num_guesses = $NUMBER_OF_GUESSES WHERE player_id = $PLAYER_ID")
   # 2 number low
     elif [[ $GUESS > $NUMBER ]]
     then
