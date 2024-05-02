@@ -11,7 +11,7 @@ NUMBER_OF_GUESSES=0
 
  # generate a number between 1 and 1000
 NUMBER=$(($RANDOM % 1000 + 1))
-#echo -e "\nthe number is $NUMBER"
+echo -e "\nthe number is $NUMBER"
 echo -e "\nEnter your username: "
 GET_USER () {
 
@@ -20,7 +20,7 @@ read USER_NAME
 
 # check if user name < 23 3characters
 LEN_NAME=${#USER_NAME}
-# echo $LEN_NAME
+ echo "your name is $LEN_NAME characters long."
 if [[ $LEN_NAME -gt 22 ]]
 then
   echo -e "\nPlease choose a name shorter than 23 characters:"
@@ -35,7 +35,7 @@ then
   INSERT_RESULT=$($PSQL "INSERT INTO players(name) values('$USER_NAME')")
   PLAYER_ID=$($PSQL "SELECT player_id FROM players WHERE name = '$USER_NAME'")
 
-   echo "Welcome, $USER_NAME! It looks like this is your first time here."
+  echo "Welcome, $USER_NAME! It looks like this is your first time here."
 else
    
   PLAYER_ID=$($PSQL "SELECT player_id FROM players WHERE name = '$USER_NAME'")
@@ -81,37 +81,8 @@ GUESS_NUM () {
     elif [[ $GUESS < $NUMBER ]]
     then
       echo -e "\nIt's higher than that, guess again:"
-      GUESS_NUM
- 
-      
+      GUESS_NUM      
   fi
   
 }
 GUESS_NUM
-# get user
-# prompt for user name
-
-
-# if first time welcome and mention first time
-
-# if not welcome and give play history
-
-# prompt to guess number
-
-
-# if not integer prompt again
-
-
-# if lower say lower
-
-
-# prompt again
-
-# if higher say higher
-
-
-# prompt again
-
-# on success say how many tries it took
-
-
