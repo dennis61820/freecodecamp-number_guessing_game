@@ -62,16 +62,18 @@ GUESS_NUM () {
    
  # echo $NUMBER_OF_GUESSES
    
-  if [[ ! $GUESS =~ ^[0-9]+$ ]]
+ if [[ ! $GUESS =~ ^[0-9]+$ ]]
   then
     echo  "That is not an integer, guess again: "
-    GUESS_NUM 
+    let NUMBER_OF_GUESSES+=1
+    read GUESS
   fi
-  if [[ $GUESS -lt 1 || $GUESS -gt 1000 ]]
-  then
+  while [[ $GUESS -lt 1 || $GUESS -gt 1000 ]]
+  do
     echo "That's outside of the range, guess again: "
-    GUESS_NUM
-  fi
+    let NUMBER_OF_GUESSES+=1
+    read GUESS
+  done
   
   # 1 number correct
     if [[ $GUESS -eq $NUMBER ]]
