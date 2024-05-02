@@ -20,7 +20,7 @@ read USER_NAME
 
 # check if user name < 23 3characters
 LEN_NAME=${#USER_NAME}
- echo "your name is $LEN_NAME characters long."
+ #echo "your name is $LEN_NAME characters long."
 if [[ $LEN_NAME -gt 22 ]]
 then
   echo -e "\nPlease choose a name shorter than 23 characters:"
