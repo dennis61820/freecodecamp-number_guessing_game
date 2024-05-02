@@ -23,7 +23,7 @@ LEN_NAME=${#USER_NAME}
  #echo "your name is $LEN_NAME characters long."
 if [[ $LEN_NAME -gt 22 ]]
 then
-  echo -e "\nPlease choose a name shorter than 23 characters:"
+  echo -e "\nPlease choose a name shorter than 23 characters: "
   GET_USER
 fi
 # check if user exists
@@ -35,7 +35,7 @@ then
   INSERT_RESULT=$($PSQL "INSERT INTO players(name) values('$USER_NAME')")
   PLAYER_ID=$($PSQL "SELECT player_id FROM players WHERE name = '$USER_NAME'")
 
-  echo "Welcome, $USER_NAME! It looks like this is your first time here."
+  echo "Welcome, $USER_NAME! It looks like this is your first time here. "
 else
    
   PLAYER_ID=$($PSQL "SELECT player_id FROM players WHERE name = '$USER_NAME'")
@@ -45,7 +45,7 @@ else
    echo  "Welcome back, $USER_NAME! You have played $NUM_OF_GAMES games, and your best game took $BEST_GAME guesses."
  fi
 
-   echo -e "\nGuess the secret number between 1 and 1000:"
+   echo -e "\nGuess the secret number between 1 and 1000: "
    
   # echo -e "\nyour id is $PLAYER_ID"
    BEGIN_GAME=$($PSQL "INSERT INTO games(player_id) values($PLAYER_ID) ")
@@ -76,17 +76,17 @@ GUESS_NUM () {
   # 1 number correct
     if [[ $GUESS -eq $NUMBER ]]
     then
-      echo -e "\nYou guessed it in $NUMBER_OF_GUESSES tries. The secret number was $NUMBER. Nice job!" 
+      echo -e "You guessed it in $NUMBER_OF_GUESSES tries. The secret number was $NUMBER. Nice job! " 
       UPDATE_GUESSES=$($PSQL "update games set num_guesses = $NUMBER_OF_GUESSES WHERE player_id = $PLAYER_ID")
   # 2 number low
     elif [[ $GUESS > $NUMBER ]]
     then
-      echo -e "\nIt's lower than that, guess again:"
+      echo -e "\nIt's lower than that, guess again: "
       GUESS_NUM
   # 3 number high 
     elif [[ $GUESS < $NUMBER ]]
     then
-      echo -e "\nIt's higher than that, guess again:"
+      echo -e "\nIt's higher than that, guess again: "
       GUESS_NUM      
   fi
   
